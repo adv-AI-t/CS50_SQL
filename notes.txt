@@ -134,3 +134,6 @@ INTEGER -> 0 byte, 1 byte, 2 byte, 3 byte, 4 byte, 6 byte, 8 byte
 ALTER TABLE
 
 1. RENAME TO -> rename a column_name
+
+INSERTING DATA INTO TABLE
+
