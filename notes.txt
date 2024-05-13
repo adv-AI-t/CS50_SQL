@@ -1,0 +1,136 @@
+sqlite3 filename -- command to open a .db file in sqlite
+
+SELECT * FROM "tablename"; -- selects all the data
+SELECT "column_name" FROM "tablename" -- selects data from the specified column/columns
+
+Convention:
+double quotes for columns column_name
+single quotes for name of SQL string
+
+LIMIT 
+To get number of rows from the table
+eg: SELECT "column_name" FROM "tablename" LIMIT 10;
+
+                TERMINAL
+
+sqlite> SELECT "title" FROM "books" LIMIT 5;
+Boulder                                          
+Whale                       
+The Gospel According to the New World
+Standing Heavy
+Time Shelter
+
+
+WHERE : to set a condition
+
+= is equal to 
+!= is not equal to
+<> this is also equivalent to not equal to 
+
+NOT can also be used 
+eg. WHERE NOT
+
+OR 
+AND
+
+LIKE is used to find strings which contain the specified substring
+
+when I write %life%, it will select all the entries in the specified column which have the word life anywhere in it
+
+eg. This is my life
+    The life of Pi
+
+If I write The%, only those strings will be selected which have The in the beginning 
+
+eg. The Three Muskateers
+    The Life of Pi
+    The Breadwinner
+
+NOTE: Writing The% can also select strings that start with "There" or "Them" or any other word that begins with The
+To fix this issue, we can use The %, the space after The will discard these undesired selections
+
+_ can match any single character
+LIKE 'p_re', when used, it finds all the strings that have any character between p and ye
+
+BETWEEN...AND... are inclusive range keywords
+eg. BETWEEN 1 AND 5 will select entries having {1,2,3,4,5}, so both the limits are included
+
+IMPORTANT!!!! -> LIKE is NOT case sensitive, but = sign IS case sensitive
+
+WHERE "title" LIKE 'pyre'; will select Pyre, even though P is capital here, but
+WHERE "title" = 'pyre'; will NOT select Pyre
+
+ ORDER BY -> to arrange the data in a specific order, by default it is ascending
+
+ ORDER BY ... ASC
+ ORDER BY ... DESC ->for descending
+
+More than one ORDER BY can be used comma separated, the first one is the main ordering and the subsequent are the tie-breakers
+
+
+        ***AGGREGATE FUNCTIONS***
+
+AVG gives average of all entries in the column
+ROUND is for rounding the number to specified number of decimal places
+AS can be used to name an entity
+eg. AVG("rating") AS "average rating"
+
+MAX
+MIN
+SUM
+COUNT -> SELECT COUNT(*) FROM "longlist";
+counts number of entries in the dataset 
+COUNT DOES NOT COUNT THE NULL VALUES
+
+NOTE: MIN and MAX on strings give the alphabetically first and alphabetically last entries!!!!
+        **It DOES NOT DEPEND ON THE LENGTH OF THE STRING** lakshat thev 
+
+DISTINT will select unique entries in the specified column
+
+
+JOINS
+
+1. JOIN -> joins tables based ON an given column 
+2. LEFT JOIN -> prioritize the left table, hence entire left table is shown even though few of the entries might not have corresponding entry in the next table
+3. RIGHT JOIN -> Prioritize the right table, hence entire right table is shown irrespective of the NULL values
+4. FULL JOIN -> Join the two tables and replace all non-correlated values by NULL, hence all the existing data is shown, nothing is omited just because they dont have a match
+5. NATURAL JOIN -> Joins the tables and keeps the column with same name just once, avoiding repetition
+
+JOIN is basically INNER JOIN, which strictly omits the NULL values
+Rest 4 ie left, right, full, natural are OUTER JOIN
+
+UNION
+INTERSECT
+EXCEPT
+
+GROUP BY: Group the entries based on repeating values of some column
+In this, we use HAVING keyword instead of WHERE !!!!! imp !!!
+WHERE is used to give conditions on a single entry, whereas HAVING is used in a group of entries
+
+
+CREATE TABLE 
+
+Example:
+
+sqlite> CREATE TABLE "riders" (
+   ...>     "id",
+   ...>     "name"
+   ...> );
+sqlite> .schema
+CREATE TABLE IF NOT EXISTS "riders" (
+    "id",
+    "name"
+);
+
+STORAGE CLASSES
+1. NULL
+2. INTEGER
+3. REAL
+4. TEXT
+5. BLOB -> Binary files -> video/audio/images
+
+INTEGER -> 0 byte, 1 byte, 2 byte, 3 byte, 4 byte, 6 byte, 8 byte
+
+ALTER TABLE
+
+1. RENAME TO -> rename a column_name
